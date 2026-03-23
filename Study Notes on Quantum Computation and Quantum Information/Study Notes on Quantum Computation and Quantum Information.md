@@ -493,9 +493,18 @@ Alice需要用尽可能少的通信确定Bob是哪一种函数。
 假设我们有预言机（Oracle），它是一个酉算子$O$，它对索引（查询）寄存器$\ket{x}$和预言机比特（目标储存器）$\ket{q}$的作用为：$O(\ket{x}\ket{q})\ket{x}\ket{q\oplus f(x)}$。当我们预先将语言机比特制备成$\ket{+}$，类似于Deutsh-Jozsa算法，通过量子反冲我们可以得到$O(\ket{x}(\frac{\ket{0}-\ket{1}}{\sqrt{2}}))=(-1)^{f(x)}\ket{x}\frac{\ket{0}-\ket{1}}{\sqrt{2}}$。此时我们说语言机改变了解的相位，标记了搜索问题的解。
 
 #### 2.5.7.1. Grover算法
-为简单计算，我们令$N=2^n$（n为整数），且$P$中仅有1条数据。Grover算法需要一个包含n个量子比特的查询寄存器和包含1个量子比特的目标寄存器。
-1. 输入态$\ket{\psi_0}=$
-2. 
+1. 算法开始于状态$\ket{0}^{\oplus n}$，使用$H^{\oplus n}$使其变为均匀叠加态$\ket{\psi}=\frac{1}{\sqrt{N}}\sum_{x=0}^{N-1}\ket{x}$。
+2. 反复操作Grover迭代（记为$G$），其作用可以分成以下四个步骤：
+    $\textcircled{1}$：作用Oracle。
+    $\textcircled{2}$：作用$H^{\oplus n}$。
+    $\textcircled{3}$：执行条件相位偏移，其对应的酉算子为$2\ket{0}\bra{0}-I$，使除$\ket{0}$之外的每个计算基矢态都获得一个$-1$的相位偏移，即$(2\ket{0}\bra{0}-I)(\ket{x})=(-1)^{\delta_{x_0}}\ket{x}$。
+    $\textcircled{4}$：再次作用$H^{\oplus n}$。
+    （步骤$\textcircled{2}$、$\textcircled{3}$、$\textcircled{4}$实际上可以写成$H^{\oplus n}(2\ket{0}\bra{0}-I)H^{\oplus n}$，即2\ket{\psi}\bra{\psi}-I，故$G=(2\ket{\psi}\bra{\psi}-I)O$）
+
+>操作$(2\ket{\psi}\bra{\psi}-I)$作用在一般的状态$\sum_k\alpha_k\ket{k}$上会得到$\sum_k[-\alpha_k+2<\alpha>]\ket{k}$，其中$<\alpha>$是$\alpha_k$的均值。因此$\sum_k\alpha_k\ket{k}$有时被称为关于均值的反演操作。
+#### Grvoer算法的几何可视化
+有了$G=(2\ket{\psi}\bra{\psi}-I)O$，我们可以证明Grover迭代可以被视为一个二维空间的旋转，这个空间由初始态$\ket{\psi}$和搜索问题中解的均匀叠加态张成。
+用$\sum'_x$表示在搜索问题中所有解的和，$\sum''_x$表示在搜索问题中所有非解元素的和。同时定义归一化状态$\begin{cases}\ket{\alpha}=\frac{1}{\sqrt{N-M}}\sum''_x\ket{x}\\\ket{\beta}=\frac{1}{\sqrt{M}}\sum'_x\ket{x}\end{cases}$。故初始态$\ket{\psi}$可以被表示为$\ket{\psi}=\sqrt{\frac{N-M}{N}}\ket{\alpha}+\sqrt{\frac{M}{N}}\ket{\beta}$。
 ### 2.5.8. 量子模拟
 
 # 3. 量子信息
