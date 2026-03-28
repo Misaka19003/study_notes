@@ -9,7 +9,7 @@ h1 {
   counter-increment: part;
 }
 h1:before {
-  content: "第" counter(part) "部分 ";
+  content: "第" counter(part, cjk-ideographic) "部分 ";
   font-weight: bold;
   margin-right: 0.5em;
 }
@@ -20,7 +20,7 @@ h2 {
   counter-increment: chapter;
 }
 h2:before {
-  content: "第" counter(chapter) "章 ";
+  content: "第" counter(chapter, cjk-ideographic) "章 ";
   font-weight: bold;
   margin-right: 0.5em;
 }
