@@ -1,3 +1,8 @@
+---
+toc:
+    depth_from: 1
+    depth_to: 2
+---
 [TOC]
 @import "./章节/理论基础/理论基础.md"
 @import "./章节/量子计算/量子计算.md"
